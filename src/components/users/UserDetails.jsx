@@ -1,35 +1,68 @@
 import React from 'react'
-import {useParams} from "react-router-dom"
+import { useSearchParams, Link } from "react-router-dom"
 import Axios from 'axios'
 import { useState, useEffect } from 'react'
 
 export default function UserDetails() {
 
-  const {id} = useParams()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [user, setUser] = useState({})
 
-  const [user, setUser] = useState([])
+    const id = searchParams.get('id')
 
-  useEffect(() => {
-    loadUserDetails(id);
-  }, [])
+    useEffect(() => {
+      loadUserDetails(id);
+    }, [])
 
-  const loadUserDetails = (id) => {
-    Axios.get("/user/details/"+id)
-    .then((res)=> {
-        console.log(res.data.user)
-        setUser(res.data.user)
-    })
-    .catch((err) => {
-        console.log(err)
-    })
-  }
+    const loadUserDetails = (id) => {
+      Axios.get(`/user/details?id=${id}`)
+      .then((res)=> {
+          setUser(res.data.user)
+      })
+      .catch((err) => {
+          console.log(err)
+      })
+    }
+
+    // const allAddresses = user.addresses.map((address, index)=>(
+    //   <tr>
+    //     <td><b>Addresses{index}: </b></td>
+    //     <td>{address}</td>
+    //   </tr>
+    // ))
 
   return (
     <>
-    <h1>{user.username}</h1>
-        <p>{user._id}</p>
-        <p>{user.emailAddress}</p>
-        <p>{user.contact}</p>
+      <h1>{user.username}</h1>
+
+      
+      <table>
+        <tbody>
+
+          <tr>
+            <td><b>Name: </b></td>
+            <td>{user.firstName} {user.lastName}</td>
+            <td><Link to={'/users/user_edit?id='+user._id}>Edit</Link></td>
+            <td><Link to={'/users/user_delete?id='+user._id}>Delete</Link></td>
+          </tr>
+          <tr>
+            <td><b>Role: </b></td>
+            <td>{user.role}</td>
+          </tr>
+          <tr>
+            <td><b>Email: </b></td>
+            <td>{user.emailAddress}</td>
+          </tr>
+          <tr>
+            <td><b>Contact: </b></td>
+            <td>{user.contact}</td>
+          </tr>
+          {/* {allAddresses} */}
+
+
+        </tbody>
+      </table>
+
     </>
   )
 }

@@ -1,18 +1,14 @@
 import React from 'react'
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
-import { useState } from 'react'
-
 
 // Components
 import SignIn from './components/auth/SignIn'
 import Home from './components/home/home'
-import UserList from './components/users/UserList'
+import Users from './components/users/Users'
 import Orders from './components/orders/OrderList'
 import Ingredients from './components/ingredients/IngredientList'
 import Items from './components/items/ItemList'
 import Addresses from './components/addresses/AddressList'
-
-import UserDetails from './components/users/UserDetails'
 
 export default function App() {
 
@@ -41,8 +37,8 @@ export default function App() {
           <Routes>
           {/* main paths */}
             <Route path='/' element={<Home/>}></Route>
-            <Route path='/admin/signin' element={<SignIn />}></Route>
-            <Route path='/users' element={<UserList />}></Route>
+            <Route path='/signin' element={<SignIn />}></Route>
+            <Route path='/users/*' element={<Users />}></Route>
             <Route path='/orders' element={<Orders />}></Route>
             <Route path='/menu' element={<Items />}></Route>
             <Route path='/ingredients' element={<Ingredients />}></Route>
@@ -50,13 +46,16 @@ export default function App() {
             
           
           {/* create paths */}
+            {/* <Route path="/user/create/:id" element={<UserDetails />}></Route> */}
 
           {/* detail paths */}
-            <Route path="/user/details/:id" element={<UserDetails />}></Route>
+            {/* <Route path="/user/details/:id" element={<UserDetails />}></Route> */}
            
           {/* update paths */}
+            {/* <Route path="/user/edit/:id" element={<UserDetails />}></Route> */}
 
           {/* delete paths */}
+            {/* <Route path="/user/delete/:id" element={<UserDetails />}></Route> */}
 
           </Routes>
 
