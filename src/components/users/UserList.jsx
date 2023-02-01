@@ -5,8 +5,7 @@ import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
 
 export default function UserList() {
 
-
-  const [users, setUsers] = useState([])
+const [users, setUsers] = useState([])
 
 
   useEffect(() => {
@@ -32,10 +31,20 @@ const allUsers = users.map((user, index) => (
   return (
     <div>
 
+
+        <hr></hr>
         <h1>Users</h1>
-        {allUsers}
 
         <div>
+          <Link to="/users/user_create">New User</Link>
+        </div>
+        <hr></hr>
+
+        {allUsers}
+
+        <hr></hr>
+        <div>
+          <Link to="/users/user_create">New User</Link>
         </div>
 
     </div>

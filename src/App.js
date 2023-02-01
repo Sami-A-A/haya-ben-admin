@@ -5,9 +5,9 @@ import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
 import SignIn from './components/auth/SignIn'
 import Home from './components/home/home'
 import Users from './components/users/Users'
-import Orders from './components/orders/OrderList'
-import Ingredients from './components/ingredients/IngredientList'
-import Items from './components/items/ItemList'
+import Orders from './components/orders/Orders'
+import Ingredients from './components/ingredients/Ingredients'
+import Items from './components/items/Items'
 import Addresses from './components/addresses/AddressList'
 
 export default function App() {
@@ -39,24 +39,11 @@ export default function App() {
             <Route path='/' element={<Home/>}></Route>
             <Route path='/signin' element={<SignIn />}></Route>
             <Route path='/users/*' element={<Users />}></Route>
-            <Route path='/orders' element={<Orders />}></Route>
-            <Route path='/menu' element={<Items />}></Route>
-            <Route path='/ingredients' element={<Ingredients />}></Route>
+            <Route path='/orders/*' element={<Orders />}></Route>
+            <Route path='/menu/*' element={<Items />}></Route>
+            <Route path='/ingredients/*' element={<Ingredients />}></Route>
             <Route path='/addresses' element={<Addresses />}></Route>
             
-          
-          {/* create paths */}
-            {/* <Route path="/user/create/:id" element={<UserDetails />}></Route> */}
-
-          {/* detail paths */}
-            {/* <Route path="/user/details/:id" element={<UserDetails />}></Route> */}
-           
-          {/* update paths */}
-            {/* <Route path="/user/edit/:id" element={<UserDetails />}></Route> */}
-
-          {/* delete paths */}
-            {/* <Route path="/user/delete/:id" element={<UserDetails />}></Route> */}
-
           </Routes>
 
           </div>

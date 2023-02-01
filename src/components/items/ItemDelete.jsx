@@ -2,7 +2,7 @@ import React from 'react'
 import { useSearchParams, useNavigate, Link } from "react-router-dom"
 import Axios from 'axios'
 
-export default function UserDelete() {
+export default function ItemDelete() {
 
   let navigate = useNavigate()
 
@@ -10,14 +10,14 @@ export default function UserDelete() {
   const id = searchParams.get('id')
   
   const handleRedirect = () => {
-    navigate(`users/user_details?id=${id}`)
+    navigate(`menu/item_details?id=${id}`)
   }
 
 
-  const deleteUser = () => {
-    Axios.delete(`/user/delete?id=${id}`)
+  const deleteItem = () => {
+    Axios.delete(`/item/delete?id=${id}`)
     .then((res)=>{
-      navigate("/users")
+      navigate("/menu")
     })
     .catch((err) => {
       console.log(err)
@@ -28,9 +28,9 @@ export default function UserDelete() {
 
   return (
     <div>
-      <p>Are you sure you want to delete user?</p>
-      <button onClick={deleteUser}>Yes, erase from existence</button>
-      <button onClick={handleRedirect}>No, wait we need their money</button>
+      <p>Are you sure you want to delete item?</p>
+      <button onClick={deleteItem}>Yes, erase from existence</button>
+      <button onClick={handleRedirect}>No, wait we need to eat</button>
     </div>
   )
 }

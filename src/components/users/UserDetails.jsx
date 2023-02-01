@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 
 export default function UserDetails() {
 
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams('')
     const [user, setUser] = useState({})
 
     const id = searchParams.get('id')
@@ -24,12 +24,16 @@ export default function UserDetails() {
       })
     }
 
-    // const allAddresses = user.addresses.map((address, index)=>(
-    //   <tr>
-    //     <td><b>Addresses{index}: </b></td>
-    //     <td>{address}</td>
-    //   </tr>
-    // ))
+    let allAddresses = []
+
+    if (user.addresses){
+    let allAddresses = user.addresses.map((address, index)=>(
+      <tr>
+        <td><b>Addresses{index}: </b></td>
+        <td>{address}</td>
+      </tr>
+    ))
+    }
 
   return (
     <>
@@ -57,7 +61,17 @@ export default function UserDetails() {
             <td><b>Contact: </b></td>
             <td>{user.contact}</td>
           </tr>
-          {/* {allAddresses} */}
+          <tr>
+            <td><b>Created: </b></td>
+            <td>{user.createdAt}</td>
+          </tr>
+          <tr>
+            <td><b>Last Updated: </b></td>
+            <td>{user.createdAt}</td>
+          </tr>
+
+          
+          {allAddresses}
 
 
         </tbody>

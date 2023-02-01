@@ -1,15 +1,16 @@
 import React from 'react'
 import Axios from 'axios'
 import { useState, useEffect } from 'react'
-import {BrowserRouter as Router, Routes, Route, Link, useSearchParams } from 'react-router-dom'
+import {  useSearchParams, useNavigate } from 'react-router-dom'
 
-export default function UserEdit(props) {
+export default function UserEdit() {
 
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams('')
   const [user, setUser] = useState({})
 
   const id = searchParams.get('id')
  
+  let navigate = useNavigate()
 
   useEffect(() => {
     loadUserDetails(id);
@@ -25,6 +26,17 @@ export default function UserEdit(props) {
     })
   }
 
+
+  const editUser = (user) => { 
+      Axios.put("/user/update", user)
+      .then((res)=> {
+          navigate('/users/user_details?id='+ user._id)
+      })
+      .catch((err) => {
+          console.log(err)
+      })
+  }
+
   const handleChange = (event) => {
     const attributeToChange = event.target.name
     const newValue = event.target.value
@@ -36,13 +48,13 @@ export default function UserEdit(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.editUser(user)
+    editUser(user)
     e.target.reset()
   }
 
   return (
     <div>
-      <h1>Update Form</h1>
+      <h3>Update Form</h3>
       
       <form onSubmit={handleSubmit} id='userform'>
         
@@ -50,14 +62,14 @@ export default function UserEdit(props) {
           <tbody>
             <tr>
               <td><label><b>Username: </b></label></td>
-              <td><input type='text' name='username' value={user.username} onChange={handleChange}></input></td>
+              <td><input type='text' name='username' defaultValue={user.username} onChange={handleChange}></input></td>
             </tr>
             <tr>
               <td><label><b>Role: </b></label></td>
               <td>
-                <select name='role' form='userform' onChange={handleChange}>
-                  <option value="Basic">Basic</option>
-                  <option value="Admin">Admin</option>
+                <select name='role' value={user.role} form='userform' onChange={handleChange}>
+                    <option value="Basic">Basic</option>
+                    <option value="Admin">Admin</option>
                 </select>
               </td>
             </tr>
