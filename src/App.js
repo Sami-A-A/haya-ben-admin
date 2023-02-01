@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, Link, Outlet} from 'react-router-dom'
 
 // Components
 import SignIn from './components/auth/SignIn'
@@ -8,7 +8,8 @@ import Users from './components/users/Users'
 import Orders from './components/orders/Orders'
 import Ingredients from './components/ingredients/Ingredients'
 import Items from './components/items/Items'
-import Addresses from './components/addresses/AddressList'
+import Addresses from './components/addresses/Addresses'
+import AddressList from './components/addresses/AddressList'
 
 export default function App() {
 
@@ -42,7 +43,9 @@ export default function App() {
             <Route path='/orders/*' element={<Orders />}></Route>
             <Route path='/menu/*' element={<Items />}></Route>
             <Route path='/ingredients/*' element={<Ingredients />}></Route>
-            <Route path='/addresses' element={<Addresses />}></Route>
+            <Route path='/addresses' element={<Addresses />}>
+              <Route path='addresslist' element={<AddressList/>}></Route>
+            </Route>
             
           </Routes>
 

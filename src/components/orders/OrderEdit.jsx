@@ -3,34 +3,35 @@ import Axios from 'axios'
 import { useState, useEffect } from 'react'
 import {  useSearchParams, useNavigate } from 'react-router-dom'
 
-export default function ItemEdit() {
+export default function OrderEdit() {
 
   const [searchParams, setSearchParams] = useSearchParams('')
-  const [item, setItem] = useState({})
+  const [order, setOrder] = useState({})
+  const [items, setItems] = useState([])
+  const [total, setTotal] = useState(0)
 
   const id = searchParams.get('id')
  
   let navigate = useNavigate()
 
   useEffect(() => {
-    loadItemDetails(id);
+    loadOrderDetails(id);
   }, [])
 
-  const loadItemDetails = (id) => {
-    Axios.get(`/menu/edit?id=${id}`)
+  const loadOrderDetails = (id) => {
+    Axios.get(`/order/edit?id=${id}`)
     .then((res)=> {
-        setItem(res.data.item)
+        setOrder(res.data.order)
     })
     .catch((err) => {
         console.log(err)
     })
   }
 
-
-  const editItem = (item) => { 
-      Axios.put("/menu/update", item)
+  const editOrder = (order) => { 
+      Axios.put("/order/update", order)
       .then((res)=> {
-          navigate('/menu/item_details?id='+ item._id)
+          navigate('/orders/order_details?id='+ order._id)
       })
       .catch((err) => {
           console.log(err)
@@ -40,55 +41,56 @@ export default function ItemEdit() {
   const handleChange = (event) => {
     const attributeToChange = event.target.name
     const newValue = event.target.value
-
-    const updatedItem = {...item}
-    updatedItem[attributeToChange] = newValue
-    setItem(updatedItem)
+    const updatedOrder = {...order}
+    updatedOrder[attributeToChange] = newValue
+    setOrder(updatedOrder)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    editItem(item)
+    editOrder(order)
     e.target.reset()
   }
 
+
   return (
     <div>
-      <h3>Update Form</h3>
+      <h3>Update Order {id}</h3>
       
-      <form id='itemform' onSubmit={handleSubmit}>
+      <form id='orderform' onSubmit={handleSubmit}>
 
         <table>
           <tbody>
+            
             <tr>
-              <td><label>Item Name</label></td>
-              <td><input type='text' name='name' defaultValue={item.name} placeholder='Item Name' onChange={handleChange}></input></td>
-            </tr>
-
-            <tr>
-              <td><label>Category</label></td>
+              <td><label>Status</label></td>
               <td>
-                <select name='category' form='itemform' value={item.category} onChange={handleChange}>
-                  <option value="Custom Bento">Custom Bento</option>
-                  <option value="Special">Special</option>
-                  <option value="Kyaraben">Kyaraben</option>
-                  <option value="Drink">Drink</option>
+                <select name='status' form='orderform' defaultValue={order.status} onChange={handleChange}>
+                  <option value="Pending">Pending</option>
+                  <option value="Delivering">Delivering</option>
+                  <option value="Delivered">Delivered</option>
+                  <option value="Cancelled">Cancelled</option>
                 </select>
               </td>
+              <td>{order.status}</td>
             </tr>
+            
             <tr>
-              <td><label>Price</label></td>
-              <td><input type='number' name='price' defaultValue={item.price} placeholder='Price in BHD' onChange={handleChange}></input></td>
+              <td><label>Location</label></td>
+              <td><input type='text' name='location' defaultValue={order.location} placeholder='Item Name' onChange={handleChange}></input></td>
             </tr>
+            
             <tr>
-              <td><label>Description</label></td>
-              <td><input type='text' name='description' defaultValue={item.description} placeholder='Description' onChange={handleChange}></input></td>
+              <td><label>Items: </label></td>
             </tr>
 
+
+
             <tr>
-              <td><label>Image URL</label></td>
-              <td><input type='text' name='imageURL' defaultValue={item.imageURL} placeholder='URL' onChange={handleChange}></input></td>
+              <td><label>Total in BHD: </label></td>
+              <td><input type='number' value={total} name='totalAmount' placeholder='Total in BD' onChange={handleChange} readOnly></input></td>
             </tr>
+
             <tr><td><input type="submit"></input></td></tr>
           </tbody>
         </table>

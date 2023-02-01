@@ -24,28 +24,13 @@ const loadOrderList = () => {
 }
 
 const allOrders = orders.map((order, index) => (
-    <div key={index}>
-      <table>
-        <thead>
-          <tr>
-            <th>Order Id</th>
-            <th>Status</th>
-            <th>Created</th>
-            <th>Last Updated</th>
-          </tr>
-        </thead>
-        
-        <tbody>
 
-          <tr>
-            <td><Link to={'/orders/order_details?id='+ order._id}>{order._id}</Link></td>
-            <td>{order.status}</td>
-            <td>{moment(order.createdAt).fromNow()}</td>
-            <td>{moment(order.updatedAt).fromNow()}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <tr key={index}>
+    <td><Link to={'/orders/order_details?id='+ order._id}>{order._id}</Link></td>
+    <td>{order.status}</td>
+    <td>{moment(order.createdAt).fromNow()}</td>
+    <td>{moment(order.updatedAt).fromNow()}</td>
+  </tr>
 ))
 
   return (
@@ -59,9 +44,22 @@ const allOrders = orders.map((order, index) => (
           <Link to="/orders/order_create">New Order</Link>
         </div>
         <hr></hr>
+        <table>
+          <thead>
+            <tr>
+              <th>Order Id</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Last Updated</th>
+            </tr>
+          </thead>
+        
+          <tbody>
 
         {allOrders}
 
+          </tbody>
+        </table>
         <hr></hr>
         <div>
           <Link to="/orders/order_create">New Order</Link>

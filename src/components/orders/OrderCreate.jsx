@@ -8,6 +8,7 @@ export default function OrderCreate() {
   const [items, setItems] = useState([])
   const [users, setUsers] = useState([])
   const [newOrder, setNewOrder] = useState({})
+  const [cart, setCart] = useState([])
   const [total, setTotal] = useState(0)
  
   let navigate = useNavigate()
@@ -38,9 +39,10 @@ export default function OrderCreate() {
       console.log(err)
     })
   }
-
+  
   // create new order
   const createNewOrder = (order) => {
+    
     Axios.post('/order/create', order)
     .then(res => {
       console.log(res.data.order)
@@ -65,30 +67,37 @@ export default function OrderCreate() {
     e.target.reset()
   }
 
-  const onAdd = (id) => {
-    console.log('good')
+
+  const onAdd = (id, price) => {
+    console.log(cart)
+    // console.log(`adding ${id} to cart`)
+    setCart(current => [...current, {id}])
+    setTotal(current => current += price)
   }
+
+  const onRemove = (id, price) => {
+    let cartItems = cart
+    cartItems.splice(cartItems.indexOf(id), 1)
+    console.log(cartItems)
+    // console.log(`removing ${id} to cart`)
+    setCart(cartItems)
+    setTotal(current => current -= price)
+  }
+
   
-  const onRemove = (id) => {
-    console.log(id)
-  }
-
-
   const allUsers = users.map((user,index) => (
       <option value={user._id} key={index}>{index + 1}. {user.username}</option>
   ))
 
   const allItems = items.map((item,index) => (
-        <React.Fragment key={index}>
-          <tr>
-            <td><b>{item.name}</b></td>
-            <td>
-              <button onClick={onAdd(item._id)}>Add</button>
-              <button onClick={onRemove(item._id)}>Remove</button>
-            </td>
-            <td></td>
-          </tr>
-        </React.Fragment>
+
+    <tr key={index}>
+      <td><b>{item.name}</b></td>
+      <td>
+        <button type="button" onClick={() => onAdd(item._id, item.price)}>Add</button>
+        <button type="button" onClick={() => onRemove(item._id, item.price)}>Remove</button>
+      </td>
+    </tr>
   ))
 
   return (
@@ -117,12 +126,17 @@ export default function OrderCreate() {
               <td>Items:</td>
             </tr>
 
-              {allItems}
+            {allItems}
+
+            <tr>
+              <td>Cart:</td>
+            </tr>
 
             <tr>
               <td><label>Total in BHD: </label></td>
-              <td><input type='number' value={total} name='totalAmount' placeholder='Total in BD' onChange={handleChange} readOnly></input></td>
+              <td><input type='number' name='totalAmount' value={Number(total).toFixed(3)} placeholder='Total in BD' onChange={handleChange}></input></td>
             </tr>
+
 
             <tr><td><input type="submit"></input></td></tr>
 
@@ -131,6 +145,8 @@ export default function OrderCreate() {
 
       </form>
       
+
+
     </div>
   )
 }

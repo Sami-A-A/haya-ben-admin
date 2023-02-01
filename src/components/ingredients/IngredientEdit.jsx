@@ -68,10 +68,10 @@ export default function IngredientEdit() {
               <td><label>Category</label></td>
               <td>
               <select name='category' value={ingredient.category} form='ingredientform' onChange={handleChange}>
-                  <option value="Carbohydrate">Carbohydrate</option>
-                  <option value="Protein">Protein</option>
-                  <option value="Vegetable">Vegetables & Salads</option>
-                  <option value="PickleFruit">Fruits & Pickles</option>
+                  <option value="carbs">Carbohydrate</option>
+                  <option value="protein">Protein</option>
+                  <option value="vegetables">Vegetables & Salads</option>
+                  <option value="fruits">Fruits & Pickles</option>
                 </select>
               </td>
             </tr>

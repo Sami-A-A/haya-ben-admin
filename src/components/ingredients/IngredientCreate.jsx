@@ -52,10 +52,10 @@ export default function IngredientCreate() {
               <td><label>Category</label></td>
               <td>
                 <select name='category' form='ingredientform' onChange={handleChange}>
-                  <option value="Carbohydrate">Carbohydrate</option>
-                  <option value="Protein">Protein</option>
-                  <option value="Vegetable">Vegetable</option>
-                  <option value="PickleFruit">Pickles & Fruit</option>
+                  <option value="carbs">Carbohydrate</option>
+                  <option value="protein">Protein</option>
+                  <option value="vegetables">Vegetable</option>
+                  <option value="fruits">Pickles & Fruit</option>
                 </select>
               </td>
             </tr>

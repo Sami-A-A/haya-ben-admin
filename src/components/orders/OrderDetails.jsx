@@ -34,8 +34,6 @@ export default function OrderDetails() {
           <td>{item.price.toFixed(3)} BHD</td>
         </tr>
       ))
-
-
     }
 
 
