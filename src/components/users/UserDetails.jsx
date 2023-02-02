@@ -15,7 +15,11 @@ export default function UserDetails() {
     }, [])
 
     const loadUserDetails = (id) => {
-      Axios.get(`/user/details?id=${id}`)
+      Axios.get(`/user/details?id=${id}`, {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      })
       .then((res)=> {
           setUser(res.data.user)
       })

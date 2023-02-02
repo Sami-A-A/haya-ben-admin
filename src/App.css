@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+
+.flex-container{
+  display: flex;
+}
+
+
+a{
+  color:white
+}
+
+.nav-container{
+  display: flex;
+  flex-direction: column;
+  color: white;
+  width: 30vh;
+  height: 100vh;
+  background-color: #282c34;
+  padding: 3vh;
+}
+
+.top-navbar{
+
+}
+
+.side-navbar{
+
+}
+
+.main-viewport{
+ width: calc(100vw);
+ color: white;
+ background: #606b82;  
+ padding: 3vh;
+}

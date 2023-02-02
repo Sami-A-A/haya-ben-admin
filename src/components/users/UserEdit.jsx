@@ -17,7 +17,11 @@ export default function UserEdit() {
   }, [])
 
   const loadUserDetails = (id) => {
-    Axios.get(`/user/edit?id=${id}`)
+    Axios.get(`/user/edit?id=${id}`, {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      }
+    })
     .then((res)=> {
         setUser(res.data.user)
     })
@@ -28,7 +32,11 @@ export default function UserEdit() {
 
 
   const editUser = (user) => { 
-      Axios.put("/user/update", user)
+      Axios.put("/user/update", user , {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      })
       .then((res)=> {
           navigate('/users/user_details?id='+ user._id)
       })

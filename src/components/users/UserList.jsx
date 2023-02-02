@@ -13,7 +13,11 @@ const [users, setUsers] = useState([])
   }, [])
 
 const loadUserList = () => {
-  Axios.get("user/index")
+  Axios.get("user/index", {
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("token")
+    }
+  })
   .then((res) => {
       setUsers(res.data.users)
   })

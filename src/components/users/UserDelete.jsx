@@ -15,7 +15,11 @@ export default function UserDelete() {
 
 
   const deleteUser = () => {
-    Axios.delete(`/user/delete?id=${id}`)
+    Axios.delete(`/user/delete?id=${id}`, {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      }
+    })
     .then((res)=>{
       navigate("/users")
     })
